@@ -1,0 +1,32 @@
+<div class="min-h-screen bg-white">
+    <!-- Header Section -->
+    <div class="bg-white px-4 py-8 md:py-12">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-bold text-black mb-2">
+                The Accessibility Blog
+            </h1>
+            <p class="text-gray-600 text-sm md:text-base">
+                The voice of the excluded
+            </p>
+        </div>
+    </div>
+
+    <!-- Blog Grid Section -->
+    <div class="px-4 pb-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Responsive Grid: 2 columns on mobile, 3 on tablet+ -->
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                <app-blog-card *ngFor="let post of blogPosts" [post]="post" [excerptLength]="excerptLength"
+                    class="w-full"></app-blog-card>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="flex justify-center mt-8 md:mt-12" *ngIf="showLoadMore">
+                <button
+                    class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-md font-medium transition-colors duration-200">
+                    Load More Posts
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
