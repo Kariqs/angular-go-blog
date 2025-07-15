@@ -38,7 +38,7 @@ CREATE DATABASE blog;
 
 ```bash
 git https://github.com/Kariqs/angular-go-blog.git
-cd blog-app
+cd angular-go-blog
 ```
 
 ### 4. Setup Environment Variables
