@@ -1,71 +1,53 @@
-<div class="bg-white">
-    <!-- Header Section -->
-    <div class="bg-white px-4 py-8 md:py-12">
-        <div class="max-w-7xl mx-auto">
-            <h1 class="text-3xl md:text-4xl font-bold text-black mb-2">
-                The Accessibility Blog
-            </h1>
-            <p class="text-gray-600 text-sm md:text-base">
-                The voice of the excluded
-            </p>
+<!-- Blog Grid Section -->
+<div class="p-6 px-4 pb-8">
+    <div class="max-w-7xl mx-auto">
+
+        <!-- Loading State -->
+        <div *ngIf="loading" class="text-center py-12 text-gray-500">
+            <p class="text-lg animate-pulse">Loading blog posts...</p>
         </div>
-    </div>
 
+        <!--  No Blogs -->
+        <div *ngIf="blogPosts.length === 0 && !loading" class="text-center py-12 text-gray-600">
+            <p class="text-lg">No blog posts found.</p>
+        </div>
 
-    <!-- Blog Grid Section -->
-    <div class="px-4 pb-12">
-        <div class="max-w-7xl mx-auto">
+        <!-- Blogs-->
+        <div *ngIf="blogPosts.length > 0 && !loading" class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <app-blog-card *ngFor="let post of blogPosts" [post]="post" [excerptLength]="excerptLength"
+                class="w-full"></app-blog-card>
+        </div>
 
-            <!-- Loading State -->
-            <div *ngIf="loading" class="text-center py-12 text-gray-500">
-                <p class="text-lg animate-pulse">Loading blog posts...</p>
-            </div>
+        <!-- Navigation -->
+        <div class="mt-12 pt-8 border-t border-gray-200" *ngIf="blogPosts.length > 0 && !loading">
+            <div class="flex items-center justify-between text-sm sm:text-base">
+                <!-- Previous Button -->
+                <button (click)="goToPreviousPage()"
+                    class="flex items-center text-gray-600 hover:text-gray-900 transition-colors min-w-0"
+                    *ngIf="hasPreviousPage">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                        </path>
+                    </svg>
+                    Previous Page
+                </button>
+                <div class="min-w-0" *ngIf="!hasPreviousPage"></div>
 
-            <!--  No Blogs -->
-            <div *ngIf="blogPosts.length === 0 && !loading" class="text-center py-12 text-gray-600">
-                <p class="text-lg">No blog posts found.</p>
-            </div>
-
-            <!-- Blogs -->
-            <div *ngIf="blogPosts.length>0 && !loading" class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                <app-blog-card *ngFor="let post of blogPosts" [post]="post" [excerptLength]="excerptLength"
-                    class="w-full"></app-blog-card>
-            </div>
-
-            <!-- Navigation -->
-            <div *ngIf="blogPosts.length>0" class="mt-12 pt-8 border-t border-gray-200">
-                <div class="flex items-center justify-between text-sm sm:text-base">
-                    <!-- Previous Button -->
-                    <button (click)="goToPreviousPage()"
-                        class="flex items-center text-gray-600 hover:text-gray-900 transition-colors min-w-0"
-                        *ngIf="hasPreviousPage">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
-                            </path>
-                        </svg>
-                        Previous Page
-                    </button>
-                    <!-- Invisible spacer when no previous button -->
-                    <div class="min-w-0" *ngIf="!hasPreviousPage"></div>
-
-                    <!-- Current Page Display -->
-                    <div class="text-gray-700 font-medium flex-shrink-0 mx-4">
-                        Page {{ currentPage }} of {{ totalPages }}
-                    </div>
-
-                    <!-- Next Button -->
-                    <button (click)="goToNextPage()"
-                        class="flex items-center text-gray-600 hover:text-gray-900 transition-colors min-w-0"
-                        *ngIf="hasNextPage">
-                        Next Page
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                            </path>
-                        </svg>
-                    </button>
-                    <!-- Invisible spacer when no next button -->
-                    <div class="min-w-0" *ngIf="!hasNextPage"></div>
+                <!-- Current Page Display -->
+                <div class="text-gray-700 font-medium flex-shrink-0 mx-4">
+                    Page {{ currentPage }} of {{ totalPages }}
                 </div>
+
+                <!-- Next Button -->
+                <button (click)="goToNextPage()"
+                    class="flex items-center text-gray-600 hover:text-gray-900 transition-colors min-w-0"
+                    *ngIf="hasNextPage">
+                    Next Page
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+                <div class="min-w-0" *ngIf="!hasNextPage"></div>
             </div>
         </div>
     </div>

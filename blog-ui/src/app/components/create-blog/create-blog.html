@@ -75,7 +75,7 @@
                             <p class="text-sm text-gray-600 mb-4">
                                 Please upload images in 100x100 pixels size, in either PNG or JPEG format.
                             </p>
-                            <input type="file" accept="image/png,image/jpeg" (change)="onFileSelected($event)"
+                            <input type="file" accept="image/png,image/jpeg,image/jpg" (change)="onFileSelected($event)"
                                 class="hidden" #fileInput />
                             <button type="button" (click)="fileInput.click()"
                                 class="bg-blue-900 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition-colors text-sm font-medium">
