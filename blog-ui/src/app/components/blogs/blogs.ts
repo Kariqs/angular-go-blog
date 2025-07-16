@@ -12,6 +12,13 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './blogs.css',
 })
 export class Blogs implements OnInit {
+  previousPage!: number;
+  pageLimit!: number;
+  nextPage!: number;
+  hasPreviousPage!: boolean;
+  currentPage!: number;
+  totalPages!: number;
+  hasNextPage!: boolean;
   blogPosts: BlogPost[] = [];
   excerptLength = 100;
   showLoadMore = true;
@@ -22,14 +29,29 @@ export class Blogs implements OnInit {
     this.loadBlogPosts();
   }
 
-  loadBlogPosts() {
-    this.blogService.getBlogs().subscribe({
+  loadBlogPosts(page?: string, limit?: string) {
+    this.blogService.getBlogs(page, limit).subscribe({
       next: (response) => {
         this.blogPosts = response.blogs;
+        this.hasPreviousPage = response.metadata.hasPrevPage;
+        this.hasNextPage = response.metadata.hasNextPage;
+        this.currentPage = response.metadata.currentPage;
+        this.totalPages = response.metadata.totalPages;
+        this.previousPage = response.metadata.previousPage;
+        this.nextPage = response.metadata.nextPage;
+        this.pageLimit = response.metadata.limit;
       },
       error: (err) => {
         this.toaster.error(err.error.message);
       },
     });
+  }
+
+  goToNextPage() {
+    this.loadBlogPosts(this.nextPage.toString(), this.pageLimit.toString());
+  }
+
+  goToPreviousPage() {
+    this.loadBlogPosts(this.previousPage.toString(), this.pageLimit.toString());
   }
 }

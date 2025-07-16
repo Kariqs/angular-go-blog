@@ -1,1 +1,48 @@
-<p>search works!</p>
+<div class="max-w-6xl mx-auto px-4 py-6 sm:px-6">
+    <!-- Back button -->
+    <button class="flex items-center text-gray-600 hover:text-gray-800 mb-8 transition-colors" (click)="goBack()">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Back to blog posts
+    </button>
+
+    <!-- Search Header -->
+    <div class="text-center mb-6 sm:mb-8">
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">
+            Search Blogs
+        </h1>
+
+        <!-- Search Input -->
+        <div class="relative max-w-md mx-auto">
+            <input type="text" [(ngModel)]="searchTerm" (input)="onInputChange()" placeholder="Search blogs..."
+                class="w-full px-4 py-3 sm:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base" />
+            <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                (click)="onInputChange()">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Results Count -->
+    <div *ngIf="searchTerm" class="text-center mb-6 sm:mb-8">
+        <p class="text-gray-600 font-medium text-sm sm:text-base">
+            Showing {{ searchedPosts.length }} Results for "{{ searchTerm }}"
+        </p>
+    </div>
+
+    <!-- Blog Posts Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" *ngIf="searchedPosts.length > 0">
+        <app-blog-card *ngFor="let post of searchedPosts" [post]="post" [excerptLength]="exerptLength"></app-blog-card>
+    </div>
+
+    <!-- No Results -->
+    <div *ngIf="searchTerm && searchedPosts.length === 0" class="text-center py-12">
+        <p class="text-gray-500 text-lg">
+            No blog posts found matching your search.
+        </p>
+    </div>
+</div>

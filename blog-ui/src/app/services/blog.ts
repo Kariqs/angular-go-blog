@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable } from 'rxjs';
@@ -46,9 +46,27 @@ export class Blog {
   }
 
   //Fetch all blogs
-  getBlogs(): Observable<GetBlogsResponse> {
+  getBlogs(
+    page?: string,
+    limit?: string,
+    searchTerm?: string
+  ): Observable<GetBlogsResponse> {
+    let params = new HttpParams();
+
+    if (page) {
+      params = params.set('page', page);
+    }
+
+    if (limit) {
+      params = params.set('limit', limit);
+    }
+
+    if (searchTerm) {
+      params = params.set('search', searchTerm);
+    }
+
     return this.http
-      .get<GetBlogsResponse>(this.apiUrl)
+      .get<GetBlogsResponse>(this.apiUrl, { params })
       .pipe(
         catchError((error) => ErrorHandler.errorHandler(error, this.router))
       );

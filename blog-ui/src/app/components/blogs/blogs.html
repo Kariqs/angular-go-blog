@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-white">
+<div class="bg-white">
     <!-- Header Section -->
     <div class="bg-white px-4 py-8 md:py-12">
         <div class="max-w-7xl mx-auto">
@@ -12,7 +12,7 @@
     </div>
 
     <!-- Blog Grid Section -->
-    <div class="px-4 pb-8">
+    <div class="px-4 pb-12">
         <div class="max-w-7xl mx-auto">
             <!-- Responsive Grid: 2 columns on mobile, 3 on tablet+ -->
             <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
@@ -20,12 +20,40 @@
                     class="w-full"></app-blog-card>
             </div>
 
-            <!-- Load More Button -->
-            <div class="flex justify-center mt-8 md:mt-12" *ngIf="showLoadMore">
-                <button
-                    class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-md font-medium transition-colors duration-200">
-                    Load More Posts
-                </button>
+            <!-- Navigation -->
+            <div class="mt-12 pt-8 border-t border-gray-200">
+                <div class="flex items-center justify-between text-sm sm:text-base">
+                    <!-- Previous Button -->
+                    <button (click)="goToPreviousPage()"
+                        class="flex items-center text-gray-600 hover:text-gray-900 transition-colors min-w-0"
+                        *ngIf="hasPreviousPage">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                            </path>
+                        </svg>
+                        Previous Post
+                    </button>
+                    <!-- Invisible spacer when no previous button -->
+                    <div class="min-w-0" *ngIf="!hasPreviousPage"></div>
+
+                    <!-- Current Page Display -->
+                    <div class="text-gray-700 font-medium flex-shrink-0 mx-4">
+                        Page {{ currentPage }} of {{ totalPages }}
+                    </div>
+
+                    <!-- Next Button -->
+                    <button (click)="goToNextPage()"
+                        class="flex items-center text-gray-600 hover:text-gray-900 transition-colors min-w-0"
+                        *ngIf="hasNextPage">
+                        Next Post
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </button>
+                    <!-- Invisible spacer when no next button -->
+                    <div class="min-w-0" *ngIf="!hasNextPage"></div>
+                </div>
             </div>
         </div>
     </div>
