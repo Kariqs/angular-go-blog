@@ -1,10 +1,10 @@
 # Blog Storage App
 
-This project is a full-stack application that allows users to store blogs and associated images. The backend is powered by **Go**, with a **MySQL** database and **Amazon S3** used for image storage. The frontend is built using **Angular**.
+This project is a full-stack application that allows users to store blogs and associated images. The backend is powered by **Go**, with a **MySQL** database and **Amazon S3** used for image storage. The frontend is built using **Angular**. The project can is hosted on Vercel and can be accessed by clicking [**HERE**](https://blog-two-zeta-67.vercel.app/)
 
 ---
 
-## How to Run the Project
+## How to Run the Project Locally
 
 ### Prerequisites
 
@@ -110,8 +110,3 @@ angular-go-blog/
 ```
 
 ---
-
-
-
-
-
