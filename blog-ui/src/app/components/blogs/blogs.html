@@ -11,17 +11,23 @@
         </div>
     </div>
 
+
     <!-- Blog Grid Section -->
     <div class="px-4 pb-12">
         <div class="max-w-7xl mx-auto">
-            <!-- Responsive Grid: 2 columns on mobile, 3 on tablet+ -->
-            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <!--  No Blogs -->
+            <div *ngIf="blogPosts.length === 0" class="text-center py-12 text-gray-600">
+                <p class="text-lg">No blog posts found.</p>
+            </div>
+
+            <!-- Blogs -->
+            <div *ngIf="blogPosts.length>0" class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 <app-blog-card *ngFor="let post of blogPosts" [post]="post" [excerptLength]="excerptLength"
                     class="w-full"></app-blog-card>
             </div>
 
             <!-- Navigation -->
-            <div class="mt-12 pt-8 border-t border-gray-200">
+            <div *ngIf="blogPosts.length>0" class="mt-12 pt-8 border-t border-gray-200">
                 <div class="flex items-center justify-between text-sm sm:text-base">
                     <!-- Previous Button -->
                     <button (click)="goToPreviousPage()"
@@ -31,7 +37,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
                             </path>
                         </svg>
-                        Previous Post
+                        Previous Page
                     </button>
                     <!-- Invisible spacer when no previous button -->
                     <div class="min-w-0" *ngIf="!hasPreviousPage"></div>
@@ -45,7 +51,7 @@
                     <button (click)="goToNextPage()"
                         class="flex items-center text-gray-600 hover:text-gray-900 transition-colors min-w-0"
                         *ngIf="hasNextPage">
-                        Next Post
+                        Next Page
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
                             </path>
