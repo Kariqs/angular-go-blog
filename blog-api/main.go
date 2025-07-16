@@ -31,7 +31,7 @@ func main() {
 	}
 
 	app.Use(cors.New(cors.Config{
-		AllowOrigins: "https://mesh-art-gallery-ui.vercel.app/, http://localhost:4200",
+		AllowOrigins: "https://blog-two-zeta-67.vercel.app/, http://localhost:4200",
 		AllowMethods: "GET,POST,PUT,DELETE",
 		AllowHeaders: "Origin, Content-Type, Accept, Authorization",
 	}))
