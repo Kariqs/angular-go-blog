@@ -22,6 +22,7 @@ export class Blogs implements OnInit {
   blogPosts: BlogPost[] = [];
   excerptLength = 100;
   showLoadMore = true;
+  loading = false;
 
   constructor(private blogService: Blog, private toaster: ToastrService) {}
 
@@ -30,8 +31,10 @@ export class Blogs implements OnInit {
   }
 
   loadBlogPosts(page?: string, limit?: string) {
+    this.loading=true
     this.blogService.getBlogs(page, limit).subscribe({
       next: (response) => {
+        this.loading=false
         this.blogPosts = response.blogs;
         this.hasPreviousPage = response.metadata.hasPrevPage;
         this.hasNextPage = response.metadata.hasNextPage;
@@ -42,6 +45,7 @@ export class Blogs implements OnInit {
         this.pageLimit = response.metadata.limit;
       },
       error: (err) => {
+        this.loading=false
         this.toaster.error(err.error.message);
       },
     });
