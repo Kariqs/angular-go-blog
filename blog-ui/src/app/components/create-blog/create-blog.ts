@@ -81,22 +81,11 @@ export class CreateBlog {
         },
         error: (err) => {
           console.log(err);
-          this.toaster.error(err.message);
+          this.toaster.error(err.error?.message || 'Error creating blog');
         },
       });
 
       console.log('Blog post data:', formData);
-
-      this.blogService.createBlog(formData).subscribe({
-        next: (response) => {
-          this.toaster.info(response.message);
-          this.resetForm();
-          this.router.navigate(['']);
-        },
-        error: (err) => {
-          this.toaster.error(err.error.message);
-        },
-      });
     } else {
       Object.keys(this.blogForm.controls).forEach((key) => {
         this.blogForm.get(key)?.markAsTouched();
